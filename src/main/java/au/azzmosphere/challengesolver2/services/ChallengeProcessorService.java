@@ -4,6 +4,7 @@ import au.azzmosphere.challengesolver2.exceptions.Challenge2Exception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class ChallengeProcessorService {
         this.challengeObjectFactoryService = challengeObjectFactoryService;
     }
 
-    @Autowired
+    @Autowired @Lazy
     public void setConfigEntityManagerService(ConfigEntityManagerService configEntityManagerService) {
         this.configEntityManagerService = configEntityManagerService;
     }

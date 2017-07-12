@@ -4,9 +4,16 @@ buildscript {
         mavenCentral()
         jcenter()
         maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
+
+        /*
+           flatDir {
+                dirs 'libs'
+            }
+         */
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
     }
 }
 
@@ -17,8 +24,14 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'checkstyle'
+apply plugin: 'eu.appsatori.fatjar'
 
 jar {
+    baseName = 'challengesolver2'
+    version =  '1.0.0'
+}
+
+fatJar {
     baseName = 'challengesolver2'
     version =  '1.0.0'
 }

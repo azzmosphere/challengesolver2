@@ -17,9 +17,9 @@ import java.util.HashMap;
 public class ChallengeController extends AbstractChallengeController<HashMap<String, Object>, HashMap<String, Object>> {
 
     private ChallengeProcessorService challengeProcessorService;
-    private final static String CATEGORY_KEY = "categoryId";
-    private final static String CHALLENGE_KEY = "challengeId";
-    private final static String DATA_KEY = "data";
+    private static final String CATEGORY_KEY = "categoryId";
+    private static final String CHALLENGE_KEY = "challengeId";
+    private static final String DATA_KEY = "data";
 
     @Autowired
     public void setChallengeProcessorService(ChallengeProcessorService challengeProcessorService) {

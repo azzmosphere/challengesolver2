@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public abstract class AbstractChallengeController<I, O> {
     private final Logger logger = LoggerFactory.getLogger(AbstractChallengeController.class);
-    private boolean error = false;
+    private boolean error;
     private String estring = "";
 
     public boolean isError() {
@@ -43,17 +43,17 @@ public abstract class AbstractChallengeController<I, O> {
         error = false;
 
         try {
-           response = handler(input);
+            response = handler(input);
         }
         catch (Challenge2Exception e) {
-           logger.error("challenge error occured - stack trace will be recorded in log");
-           estring = e.getMessage();
-           error = true;
+            logger.error("challenge error occured - stack trace will be recorded in log");
+            estring = e.getMessage();
+            error = true;
         }
         catch (Exception e) {
-           logger.error("unchecked error has occurred", e);
-           estring = e.getMessage();
-           error = true;
+            logger.error("unchecked error has occurred", e);
+            estring = e.getMessage();
+            error = true;
         }
 
         return response;
