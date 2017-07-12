@@ -5,7 +5,7 @@ import au.azzmosphere.challengesolver2.persist.config.ChallengeDAO;
 import au.azzmosphere.challengesolver2.persist.config.ConfigEntityManager;
 import org.junit.Test;
 import java.util.Arrays;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.net.URI;
 
@@ -51,7 +51,7 @@ public class TestConfigEntityManagerService {
             c1, c2, c3,
         };
         when(configEntityManager.getCategories()).thenReturn(Arrays.asList(categories));
-        List<Hashtable<String, Object>> list =  configEntityManagerService.retrieveCategories();
+        List<HashMap<String, Object>> list =  configEntityManagerService.retrieveCategories();
 
         assertThat(list.size(), is(2));
         assertThat(list.get(0).get(CK_ID.toString()), is(1));
@@ -89,7 +89,7 @@ public class TestConfigEntityManagerService {
         when(configEntityManager.getChallenges(1)).thenReturn(Arrays.asList(challenges1));
         when(configEntityManager.getChallenges(2)).thenReturn(Arrays.asList(challenges2));
 
-        List<Hashtable<String, Object>> list =  configEntityManagerService.retrieveChallenges(1);
+        List<HashMap<String, Object>> list =  configEntityManagerService.retrieveChallenges(1);
         assertThat(list.size(), is(2));
         assertThat(list.get(0).get(CK_ID.toString()), is(1));
         assertThat(list.get(0).get("heading"), is("heading 1"));
@@ -118,7 +118,7 @@ public class TestConfigEntityManagerService {
         when(c.isEnabled()).thenReturn(true);
 
         when(configEntityManager.getCategory(1)).thenReturn(c);
-        Hashtable<String, Object> categoryHash = configEntityManagerService.retrieveCategory(1);
+        HashMap<String, Object> categoryHash = configEntityManagerService.retrieveCategory(1);
 
         assertThat(categoryHash.get(CK_ID.toString()), is(1));
         assertThat(categoryHash.get(CK_URI.toString()), is(new URI("http://www.example.com")));
@@ -141,7 +141,7 @@ public class TestConfigEntityManagerService {
 
         when(configEntityManager.getChallenge(1, 1)).thenReturn(c);
 
-        Hashtable<String, Object> challengeHash = configEntityManagerService.retrieveChallenge(1, 1);
+        HashMap<String, Object> challengeHash = configEntityManagerService.retrieveChallenge(1, 1);
 
         assertThat(challengeHash.get(CK_CLAZZ.toString()), is("this.class"));
         assertThat(challengeHash.get(CK_ID.toString()), is(1));

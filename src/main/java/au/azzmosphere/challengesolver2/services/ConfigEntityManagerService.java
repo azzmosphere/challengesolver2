@@ -3,9 +3,10 @@ package au.azzmosphere.challengesolver2.services;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.lang.reflect.Method;
 
 import au.azzmosphere.challengesolver2.exceptions.Challenge2Exception;
@@ -95,7 +96,7 @@ public class ConfigEntityManagerService {
      * @return
      * @throws ObjectNotFoundException
      */
-    public List<Hashtable<String, Object>> retrieveCategories() throws Challenge2Exception {
+    public List<HashMap<String, Object>> retrieveCategories() throws Challenge2Exception {
         return createList(configEntityManager.getCategories());
     }
 
@@ -106,7 +107,7 @@ public class ConfigEntityManagerService {
      * @return
      * @throws ObjectNotFoundException
      */
-    public List<Hashtable<String, Object>> retrieveChallenges(int categoryId) throws Challenge2Exception {
+    public List<HashMap<String, Object>> retrieveChallenges(int categoryId) throws Challenge2Exception {
         return createList(configEntityManager.getChallenges(categoryId));
     }
 
@@ -117,7 +118,7 @@ public class ConfigEntityManagerService {
      * @return
      * @throws Challenge2Exception
      */
-    public Hashtable<String, Object> retrieveCategory(int categoryId) throws  Challenge2Exception
+    public HashMap<String, Object> retrieveCategory(int categoryId) throws  Challenge2Exception
     {
         String keys[] = new String[] {
                 CONFIG_KEYS.URI.toString(),
@@ -139,7 +140,7 @@ public class ConfigEntityManagerService {
      * @return
      * @throws Challenge2Exception
      */
-    public Hashtable<String, Object> retrieveChallenge(int categorId, int challengeId) throws Challenge2Exception
+    public HashMap<String, Object> retrieveChallenge(int categorId, int challengeId) throws Challenge2Exception
     {
         String keys[] = new String[] {
                 CONFIG_KEYS.CLAZZ.toString(),
@@ -157,12 +158,12 @@ public class ConfigEntityManagerService {
      * convert a configuration object to a hashtable. the keys handed to this
      * object should represent the getters within the object.
      */
-    private Hashtable<String, Object> configObject2Hash(String[] keys, Object obj) throws Challenge2Exception {
+    private HashMap<String, Object> configObject2Hash(String[] keys, Object obj) throws Challenge2Exception {
         if (obj == null) {
             throw new ObjectNotFoundException("could not find category");
         }
 
-        Hashtable<String, Object> rv = new Hashtable<>();
+        HashMap<String, Object> rv = new HashMap<>();
         try {
 
             for (String key : keys) {
@@ -202,9 +203,9 @@ public class ConfigEntityManagerService {
     /*
      * converts a list of config objects into a hashtable.
      */
-    private List<Hashtable<String, Object>> createList(List<Object> list) throws Challenge2Exception {
+    private List<HashMap<String, Object>> createList(List<Object> list) throws Challenge2Exception {
         logger.debug("attempting to retrieve all Objects");
-        List<Hashtable<String, Object>> rv;
+        List<HashMap<String, Object>> rv;
 
         try {
             if (list.size() == 0) {
@@ -222,13 +223,13 @@ public class ConfigEntityManagerService {
         return rv;
     }
 
-    private List<Hashtable<String, Object>> retrieveList(List<Object> list) throws Exception {
-        List<Hashtable<String, Object>> rv = new ArrayList<>();
+    private List<HashMap<String, Object>> retrieveList(List<Object> list) throws Exception {
+        List<HashMap<String, Object>> rv = new ArrayList<>();
         for (Object configObject : list) {
             ConfigBaseDAO configItem = (ConfigBaseDAO) configObject;
             if (configItem.isEnabled()) {
                 logger.debug("adding object with id " + configItem.getId() + " and heading " + configItem.getHeading());
-                Hashtable<String, Object> values = new Hashtable<>();
+                HashMap<String, Object> values = new HashMap<>();
                 values.put(CONFIG_KEYS.ID.toString(), configItem.getId());
                 values.put(CONFIG_KEYS.HEADING.toString(), configItem.getHeading());
                 rv.add(values);
