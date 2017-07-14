@@ -3,6 +3,7 @@ package au.azzmosphere.challengesolver2.services;
 import au.azzmosphere.challengesolver2.persist.config.CategoryDAO;
 import au.azzmosphere.challengesolver2.persist.config.ChallengeDAO;
 import au.azzmosphere.challengesolver2.persist.config.ConfigEntityManager;
+import org.junit.Before;
 import org.junit.Test;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,7 +30,12 @@ public class TestConfigEntityManagerService {
     private static final ConfigEntityManagerService.CONFIG_KEYS CK_CLAZZ = ConfigEntityManagerService.CONFIG_KEYS.CLAZZ;
 
     private ConfigEntityManager configEntityManager = mock(ConfigEntityManager.class);
-    private ConfigEntityManagerService configEntityManagerService = new ConfigEntityManagerService(configEntityManager);
+    private ConfigEntityManagerService configEntityManagerService = new ConfigEntityManagerService();
+
+    @Before
+    public void setupTest() {
+        configEntityManagerService.setConfigEntityManager(configEntityManager);
+    }
 
     @Test
     public void testRetrieveCategories1() throws Exception {

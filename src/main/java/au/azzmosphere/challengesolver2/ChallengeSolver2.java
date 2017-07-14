@@ -1,8 +1,8 @@
 package au.azzmosphere.challengesolver2;
 
-import au.azzmosphere.challengesolver2.application.ChallengeSolver2Config;
-import au.azzmosphere.challengesolver2.persist.config.ConfigEntityManager;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  *
@@ -10,14 +10,20 @@ import org.springframework.boot.SpringApplication;
  * persistent entities.
  *
  * Created by aaron.spiteri on 12/7/17.
+ *
+ * TODO: To avoid the painful and unessary pain of trying to inject entity manager
+ * pre construction. I am going to autowire the configuration service in
+ * here and then set the entity manager pre run if that is possible.
  */
 
+@SpringBootApplication
+@ComponentScan("au.azzmosphere.challengesolver2")
 public class ChallengeSolver2 {
-    public ChallengeSolver2(ConfigEntityManager configEntityManager) {
-        new ChallengeSolver2Config(configEntityManager);
+    public static void init(String[] args) {
+        SpringApplication.run(ChallengeSolver2.class, args);
     }
 
-    public void init(String[] args) {
-        SpringApplication.run(ChallengeSolver2.class, args);
+    public static void main(String[] args) {
+        ChallengeSolver2.init(args);
     }
 }

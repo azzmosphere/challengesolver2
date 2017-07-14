@@ -1,5 +1,7 @@
 package au.azzmosphere.challengesolver2.services;
 
+import au.azzmosphere.challengesolver2.exceptions.C2InstantiationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.reflect.Method;
+//import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 
 import au.azzmosphere.challengesolver2.exceptions.Challenge2Exception;
 import au.azzmosphere.challengesolver2.exceptions.CodeReflectionException;
@@ -31,7 +35,59 @@ import static au.azzmosphere.challengesolver2.utils.StringUtils.toUCFirst;
 @Service
 public class ConfigEntityManagerService {
     private Logger logger = LoggerFactory.getLogger(ConfigEntityManagerService.class);
+
+
+    private String configEntityManagerClass;
     private ConfigEntityManager configEntityManager;
+
+
+    public void setConfigEntityManager(ConfigEntityManager configEntityManager) {
+        this.configEntityManager = configEntityManager;
+    }
+
+    @Autowired
+    public ConfigEntityManagerService(Environment environment) throws C2InstantiationException {
+        logger.debug("configuration service: Environment set = true");
+
+        if (environment != null && environment.getProperty("challengeconfigservice") != null) {
+            configEntityManagerClass = environment.getProperty("challengeconfigservice");
+            initConfigService();
+        }
+    }
+
+    public ConfigEntityManagerService() {
+        logger.debug("configuration service: Environment set = false");
+    }
+
+
+    /**
+     * the constructor attempts to create a instance of the service manager.
+     *
+     * @throws C2InstantiationException
+     */
+    private void initConfigService() throws C2InstantiationException {
+        try {
+            if (configEntityManagerClass == null) {
+                throw new C2InstantiationException("no entity manager class has been defined");
+            }
+
+            logger.debug("attempting to load configEntityMangerClass " + configEntityManagerClass);
+            ClassLoader classLoader = this.getClass().getClassLoader();
+            Class configEntityMangerClassObj = classLoader.loadClass(configEntityManagerClass);
+            configEntityManager = (ConfigEntityManager) configEntityMangerClassObj.newInstance();
+        }
+        catch (C2InstantiationException e) {
+            throw e;
+        }
+        catch (Exception e) {
+            logger.error("and unchecked exception has occurred ", e);
+            throw new C2InstantiationException(e.getMessage());
+        }
+    }
+
+    public ConfigEntityManagerService(ConfigEntityManager configEntityManager) {
+        this.configEntityManager = configEntityManager;
+    }
 
     /**
      * used for hashtable keys.
@@ -79,10 +135,6 @@ public class ConfigEntityManagerService {
                 return "enabled";
             }
         }
-    }
-
-    public ConfigEntityManagerService(ConfigEntityManager configEntityManager) {
-        this.configEntityManager = configEntityManager;
     }
 
     /**
