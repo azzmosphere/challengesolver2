@@ -19,11 +19,8 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan("au.azzmosphere.challengesolver2")
 public class ChallengeSolver2 {
-    public static void init(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(ChallengeSolver2.class, args);
     }
 
-    public static void main(String[] args) {
-        ChallengeSolver2.init(args);
-    }
 }

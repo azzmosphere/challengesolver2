@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.reflect.Method;
-//import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 
 import au.azzmosphere.challengesolver2.exceptions.Challenge2Exception;
@@ -52,6 +51,7 @@ public class ConfigEntityManagerService {
         if (environment != null && environment.getProperty("challengeconfigservice") != null) {
             configEntityManagerClass = environment.getProperty("challengeconfigservice");
             initConfigService();
+            configEntityManager.setConfiguration(environment);
         }
     }
 

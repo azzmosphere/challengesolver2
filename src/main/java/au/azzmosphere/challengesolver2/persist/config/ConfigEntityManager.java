@@ -1,5 +1,7 @@
 package au.azzmosphere.challengesolver2.persist.config;
 
+import org.springframework.core.env.Environment;
+
 import java.util.List;
 
 /**
@@ -21,4 +23,6 @@ public interface ConfigEntityManager {
 
     ChallengeDAO getChallenge(int categorId, int challengeId);
     void setChallenge(int categorId, ChallengeDAO challenge);
+
+    void setConfiguration(Environment environment);
 }
