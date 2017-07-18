@@ -1,0 +1,22 @@
+group 'au.azzmosphere.challengesolver2'
+version '1.0'
+
+apply plugin: 'org.springframework.boot'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':cs2server')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+bootRepackage {
+    enabled = false
+}

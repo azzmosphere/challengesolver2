@@ -1,0 +1,27 @@
+group 'au.azzmosphere.challengesolver2'
+version '1.0'
+
+apply plugin: 'org.springframework.boot'
+
+jar {
+    version =  '1.0.0'
+    manifest {
+        attributes(
+                'Main-Class': 'au.azzmosphere.challengesolver2.ChallengeSolver2'
+        )
+    }
+}
+
+springBoot {
+    mainClass = "au.azzmosphere.challengesolver2.ChallengeSolver2"
+    executable = true
+}
+
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+

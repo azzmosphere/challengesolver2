@@ -11,43 +11,28 @@ buildscript {
     }
 }
 
-group 'au.azzmosphere.challengesolver2'
-version '1.0'
-
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'checkstyle'
 
-jar {
-    baseName = 'challengesolver2'
-            version =  '1.0.0'
-    manifest {
-        attributes(
-                'Main-Class': 'au.azzmosphere.challengesolver2.ChallengeSolver2'
-        )
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'checkstyle'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile "org.mockito:mockito-core:2.+"
+    }
+
+    checkstyle {
+        configFile = rootProject.file('config/checkstyle/checkstyle.xml')
     }
 }
 
-
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
-
-springBoot {
-    mainClass = "au.azzmosphere.challengesolver2.ChallengeSolver2"
-}
-
-dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile "org.mockito:mockito-core:2.+"
-}
