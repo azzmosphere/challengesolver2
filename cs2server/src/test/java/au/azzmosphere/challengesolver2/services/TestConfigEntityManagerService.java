@@ -1,8 +1,8 @@
 package au.azzmosphere.challengesolver2.services;
 
-import au.azzmosphere.challengesolver2.persist.config.CategoryDAO;
 import au.azzmosphere.challengesolver2.persist.config.ChallengeDAO;
 import au.azzmosphere.challengesolver2.persist.config.ConfigEntityManager;
+import au.azzmosphere.challengesolver2.persist.config.CategoryDAO;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Arrays;

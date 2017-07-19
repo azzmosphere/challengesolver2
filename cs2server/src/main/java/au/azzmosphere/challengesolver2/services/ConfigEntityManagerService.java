@@ -49,9 +49,20 @@ public class ConfigEntityManagerService {
         logger.debug("configuration service: Environment set = true");
 
         if (environment != null && environment.getProperty("challengeconfigservice") != null) {
-            configEntityManagerClass = environment.getProperty("challengeconfigservice");
-            initConfigService();
-            configEntityManager.setConfiguration(environment);
+            try {
+                configEntityManagerClass = environment.getProperty("challengeconfigservice");
+                initConfigService();
+                configEntityManager.setConfiguration(environment);
+                configEntityManager.initalise();
+            }
+            catch (C2InstantiationException e) {
+                logger.error("caught instantiation exception", e);
+                throw e;
+            }
+            catch (Exception e) {
+                logger.error("could not create create config manager instance", e);
+                throw new C2InstantiationException(e.getMessage());
+            }
         }
     }
 

@@ -25,4 +25,6 @@ public interface ConfigEntityManager {
     void setChallenge(int categorId, ChallengeDAO challenge);
 
     void setConfiguration(Environment environment);
+
+    void initalise() throws Exception;
 }
