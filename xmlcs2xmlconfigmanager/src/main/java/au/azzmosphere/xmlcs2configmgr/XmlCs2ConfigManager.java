@@ -4,16 +4,10 @@ import au.azzmosphere.challengesolver2.persist.config.CategoryDAO;
 import au.azzmosphere.challengesolver2.persist.config.ChallengeDAO;
 import au.azzmosphere.challengesolver2.persist.config.ConfigEntityManager;
 import org.springframework.core.env.Environment;
-
-import java.io.FileNotFoundException;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-// import javax.xml.bind.Unmarshaller;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Schema;
-// import javax.xml.bind.JAXBContext;
-import java.io.File;
+
 
 
 import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
@@ -60,12 +54,12 @@ public class XmlCs2ConfigManager implements ConfigEntityManager {
     }
 
     @Override
-    public ChallengeDAO getChallenge(int categorId, int challengeId) {
+    public ChallengeDAO getChallenge(int categoryId, int challengeId) {
         return null;
     }
 
     @Override
-    public void setChallenge(int categorId, ChallengeDAO challenge) {
+    public void setChallenge(int categoryId, ChallengeDAO challenge) {
 
     }
 
@@ -89,23 +83,8 @@ public class XmlCs2ConfigManager implements ConfigEntityManager {
      */
     @Override
     public void initalise() throws Exception {
-        if (xmlConfigSchema == null || xmlConfigFile == null) {
-            throw new FileNotFoundException("xmlConfigSchema and xmlConfigFile must be defined");
-        }
-        logger.debug("setting the XML config path to " + xmlConfigFile);
-        readXMLProperties();
+        logger.debug("reading categories and challenges file");
     }
 
-    //TODO: Return back the categories so that they can be mapped.
-    private void readXMLProperties() throws Exception {
-        logger.debug("config services started");
-        SchemaFactory factory = SchemaFactory.newInstance(W3C_XML_SCHEMA_NS_URI);
-        Schema schema = factory.newSchema(new File(xmlConfigSchema));
 
-//        JAXBContext jc = JAXBContext.newInstance(ChallengeConfigRoot.class);
-//        Unmarshaller unmarshaller = jc.createUnmarshaller();
-//        unmarshaller.setSchema(schema);
-//        File xml = new File(xmlConfigFile);
-//        challenges = (ChallengeConfigRoot) unmarshaller.unmarshal(xml);
-    }
 }

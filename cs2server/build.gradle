@@ -19,9 +19,9 @@ springBoot {
 
 
 dependencies {
-//    compile("org.springframework.boot:spring-boot-starter-web")
-//    compile("org.springframework.boot:spring-boot-starter-actuator")
     compile project(':cs2interface')
+    compile project(':cs2utilities')
+    compile project(':xmlcs2xmlconfigmanager')
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }

@@ -7,13 +7,13 @@ import java.lang.reflect.Method;
  */
 public class ChallengeIntrospection {
     public static boolean hasMethod(Object obj, String methodName) {
-        boolean rv = true;
+        boolean rv = false;
 
         try {
-            Method method = obj.getClass().getMethod(methodName);
-
-            if (method == null) {
-                rv = false;
+            for (Method method : obj.getClass().getMethods()) {
+                if (method.getName().equals(methodName)) {
+                    return true;
+                }
             }
         }
         catch (Exception e) {

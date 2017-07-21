@@ -4,7 +4,7 @@ package au.azzmosphere.challengesolver2.persist.config;
  * Created by aaron.spiteri on 9/7/17.
  */
 public interface ConfigBaseDAO {
-    void setId(int id);
+    void setId(Integer id);
     int getId();
 
     void setHeading(String heading);
