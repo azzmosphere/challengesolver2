@@ -85,6 +85,4 @@ public class XmlCs2ConfigManager implements ConfigEntityManager {
     public void initalise() throws Exception {
         logger.debug("reading categories and challenges file");
     }
-
-
 }

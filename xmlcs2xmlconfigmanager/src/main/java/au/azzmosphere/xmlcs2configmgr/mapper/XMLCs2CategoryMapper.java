@@ -18,11 +18,12 @@ import java.util.Map;
  */
 public class XMLCs2CategoryMapper extends AbstractCs2Mapper {
     private Map<Integer, Map<Integer, ChallengeDAO>> challenges;
-    private XMLCs2ChallengeMapper xmlCs2ChallengeMapper = new XMLCs2ChallengeMapper();
+    private XMLCs2ChallengeMapper xmlCs2ChallengeMapper;
     private final Logger logger = LoggerFactory.getLogger(XMLCs2CategoryMapper.class);
 
-    public XMLCs2CategoryMapper(Map<Integer, Map<Integer, ChallengeDAO>> challenges) {
+    public XMLCs2CategoryMapper(Map<Integer, Map<Integer, ChallengeDAO>> challenges, XMLCs2ChallengeMapper xmlCs2ChallengeMapper) {
         this.challenges = challenges;
+        this.xmlCs2ChallengeMapper = xmlCs2ChallengeMapper;
     }
 
     public CategoryDAO mapItem(XmlCs2Category objectIn)  throws C2InstantiationException {
